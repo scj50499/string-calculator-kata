@@ -17,7 +17,8 @@ class StringCalculator
 
     numbers = numbers.map(&:to_i)
     validate_negative_numbers!(numbers)
-    sum = numbers.sum
+    filtered_numbers = numbers.select { |n| n <= 1000 }
+    sum = filtered_numbers.sum
     trigger_add_occured_event(numbers.join(','), sum)
     sum
   end

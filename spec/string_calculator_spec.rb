@@ -35,6 +35,10 @@ describe StringCalculator do
     it 'raises error for multiple negative numbers' do
       expect { calculator.add("1,-2,-3") }.to raise_error(/negatives not allowed: -2, -3/)
     end
+
+    it 'ignores numbers greater than 1000' do
+      expect(calculator.add("1,1001,2")).to eq(3)
+    end
   end
 
   describe '#get_called_count' do
