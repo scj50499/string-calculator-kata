@@ -27,5 +27,13 @@ describe StringCalculator do
     it 'returns sum for numbers with custom delimiter' do
       expect(calculator.add("//;\n1;2")).to eq(3)
     end
+
+    it 'raises error for negative numbers' do
+      expect { calculator.add("1,-2") }.to raise_error(/negatives not allowed: -2/)
+    end
+
+    it 'raises error for multiple negative numbers' do
+      expect { calculator.add("1,-2,-3") }.to raise_error(/negatives not allowed: -2, -3/)
+    end
   end
 end
