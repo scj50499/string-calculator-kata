@@ -48,4 +48,16 @@ describe StringCalculator do
       expect(calculator.get_called_count).to eq(2)
     end
   end
+
+  describe '#add_occured' do
+    it 'triggers event with input and result' do
+      input = '1,2'
+      result = nil
+      calculator.add_occured do |input_str, sum|
+        result = { input: input_str, sum: sum }
+      end
+      calculator.add(input)
+      expect(result).to eq({ input: input, sum: 3 })
+    end
+  end
 end

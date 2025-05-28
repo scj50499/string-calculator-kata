@@ -1,6 +1,7 @@
 class StringCalculator
   def initialize
     @call_count = 0
+    @add_occured_callback = nil
   end
 
   def add(numbers)
@@ -16,11 +17,17 @@ class StringCalculator
 
     numbers = numbers.map(&:to_i)
     validate_negative_numbers!(numbers)
-    numbers.sum
+    sum = numbers.sum
+    trigger_add_occured_event(numbers.join(','), sum)
+    sum
   end
 
   def get_called_count
     @call_count
+  end
+
+  def add_occured(&block)
+    @add_occured_callback = block
   end
 
   private
@@ -36,5 +43,9 @@ class StringCalculator
     return if negatives.empty?
     
     raise "negatives not allowed: #{negatives.join(', ')}"
+  end
+
+  def trigger_add_occured_event(input, sum)
+    @add_occured_callback.call(input, sum) if @add_occured_callback
   end
 end
