@@ -35,7 +35,11 @@ class StringCalculator
   
   def extract_custom_delimiter(numbers)
     delimiter_line, remaining = numbers.split("\n", 2)
-    delimiter = delimiter_line[2..-1]
+    if delimiter_line.include?('[')
+      delimiter = delimiter_line[2..-1].scan(/\[(.*?)\]/).flatten.join
+    else
+      delimiter = delimiter_line[2..-1]
+    end
     [delimiter, remaining]
   end
 

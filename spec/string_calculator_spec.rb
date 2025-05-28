@@ -39,6 +39,10 @@ describe StringCalculator do
     it 'ignores numbers greater than 1000' do
       expect(calculator.add("1,1001,2")).to eq(3)
     end
+
+    it 'supports delimiters of any length' do
+      expect(calculator.add("//[***]\n1***2***3")).to eq(6)
+    end
   end
 
   describe '#get_called_count' do
