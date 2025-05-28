@@ -8,7 +8,6 @@ This is a Ruby implementation of the String Calculator Kata using TDD with RSpec
 - Bundler
 - Rspec
 - SimpleCov
-- Rubocop
 
 ## Setup
 
