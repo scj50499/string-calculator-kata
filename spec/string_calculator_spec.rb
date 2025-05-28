@@ -47,6 +47,10 @@ describe StringCalculator do
     it 'supports multiple delimiters' do
       expect(calculator.add("//[*][%]\n1*2%3")).to eq(6)
     end
+
+    it 'supports multiple delimiters with longer lengths' do
+      expect(calculator.add("//[**][%%]\n1**2%%3")).to eq(6)
+    end
   end
 
   describe '#get_called_count' do
