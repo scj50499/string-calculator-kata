@@ -9,8 +9,8 @@ class StringCalculator
     return 0 if numbers.empty?
     
     if numbers.start_with?('//')
-      delimiter, numbers = extract_custom_delimiter(numbers)
-      numbers = numbers.split(delimiter)
+      delimiters, numbers = extract_custom_delimiter(numbers)
+      numbers = split_by_multiple_delimiters(numbers, delimiters)
     else
       numbers = numbers.split(/,|\n/)
     end
@@ -36,11 +36,22 @@ class StringCalculator
   def extract_custom_delimiter(numbers)
     delimiter_line, remaining = numbers.split("\n", 2)
     if delimiter_line.include?('[')
-      delimiter = delimiter_line[2..-1].scan(/\[(.*?)\]/).flatten.join
+      delimiters = delimiter_line[2..-1].scan(/\[(.*?)\]/).map(&:first)
     else
-      delimiter = delimiter_line[2..-1]
+      delimiters = [delimiter_line[2..-1]]
     end
-    [delimiter, remaining]
+    [delimiters, remaining]
+  end
+
+  def split_by_multiple_delimiters(numbers, delimiters)
+    # Handle single delimiter case
+    if delimiters.length == 1
+      numbers.split(delimiters.first)
+    else
+      # Escape delimiters and create regex pattern
+      pattern = delimiters.map { |d| Regexp.escape(d) }.join('|')
+      numbers.split(/#{pattern}/)
+    end
   end
 
   def validate_negative_numbers!(numbers)
