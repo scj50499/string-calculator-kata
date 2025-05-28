@@ -1,5 +1,10 @@
 class StringCalculator
+  def initialize
+    @call_count = 0
+  end
+
   def add(numbers)
+    @call_count += 1
     return 0 if numbers.empty?
     
     if numbers.start_with?('//')
@@ -14,11 +19,15 @@ class StringCalculator
     numbers.sum
   end
 
+  def get_called_count
+    @call_count
+  end
+
   private
   
   def extract_custom_delimiter(numbers)
     delimiter_line, remaining = numbers.split("\n", 2)
-    delimiter = delimiter_line[2..-1] # Skip the '//'
+    delimiter = delimiter_line[2..-1]
     [delimiter, remaining]
   end
 

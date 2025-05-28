@@ -36,4 +36,16 @@ describe StringCalculator do
       expect { calculator.add("1,-2,-3") }.to raise_error(/negatives not allowed: -2, -3/)
     end
   end
+
+  describe '#get_called_count' do
+    it 'returns 0 initially' do
+      expect(calculator.get_called_count).to eq(0)
+    end
+
+    it 'returns correct count after multiple calls' do
+      calculator.add('1')
+      calculator.add('2,3')
+      expect(calculator.get_called_count).to eq(2)
+    end
+  end
 end
