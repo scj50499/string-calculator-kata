@@ -1,4 +1,4 @@
-require 'string_calculator'
+require_relative 'spec_helper'
 
 describe StringCalculator do
   subject(:calculator) { described_class.new }
